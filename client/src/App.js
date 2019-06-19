@@ -1,17 +1,21 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 
 import "./App.css";
 
-export class App extends PureComponent {
-  state = {
-    src: null, // 업로드할 image의 src
-    crop: {
-      // 크롭(편집)할 이미지의 정보
-      unit: "px"
-    }
-  };
+export class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      src: null, // 업로드할 image의 src
+      crop: {
+        // 크롭(편집)할 이미지의 정보
+        unit: "px"
+      }
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
 
   /**
    *
@@ -125,6 +129,13 @@ export class App extends PureComponent {
     });
   }
 
+  async handleClick(e) {
+    const url = "/hello";
+    fetch(url)
+      .then(res => res.json())
+      .then(data => console.log(data));
+  }
+
   render() {
     const { crop, croppedImageUrl, src } = this.state;
 
@@ -145,6 +156,7 @@ export class App extends PureComponent {
         {croppedImageUrl && (
           <img alt="Crop" style={{ maxWidth: "100%" }} src={croppedImageUrl} />
         )}
+        <button onClick={this.handleClick}>test</button>
       </div>
     );
   }

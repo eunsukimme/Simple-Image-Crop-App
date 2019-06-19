@@ -11,5 +11,19 @@
     "express": "^4.17.1",
     "morgan": "^1.9.1",
     "nodemon": "^1.19.1"
+  },
+  "scripts": {
+    "heroku-postbuild": "cd client && yarn && yarn build",
+    "server": "node server.js",
+    "client": "cd client && yarn start",
+    "start": "yarn server",
+    "dev": "concurrently -k \"nodemon server\" \"yarn client\""
+  },
+  "keywords": [
+    "example",
+    "heroku"
+  ],
+  "engines": {
+    "node": "10.x"
   }
 }
