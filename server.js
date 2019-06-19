@@ -23,4 +23,6 @@ app.get("/hello", (req, res, next) => {
   res.json("Response from Express server");
 });
 
+app.post("/upload", (req, res, next) => {});
+
 app.listen(PORT, () => console.log(`Server is listening at PORT ${PORT}`));

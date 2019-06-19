@@ -1,3 +1,8 @@
 img {
   max-width: 100%;
 }
+
+.left-section,
+.right-section {
+  float: left;
+}

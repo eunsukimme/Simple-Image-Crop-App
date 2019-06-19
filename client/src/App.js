@@ -12,9 +12,11 @@ export class App extends React.Component {
       crop: {
         // 크롭(편집)할 이미지의 정보
         unit: "px"
-      }
+      },
+      text: ""
     };
-    this.handleClick = this.handleClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   /**
@@ -129,11 +131,27 @@ export class App extends React.Component {
     });
   }
 
-  async handleClick(e) {
-    const url = "/hello";
-    fetch(url)
+  async handleSubmit(e) {
+    e.preventDefault();
+    console.log(this.state.croppedImageUrl);
+    console.log(this.state.text);
+
+    const url = "/upload";
+    /*fetch(url, {
+      method: "POST",
+      body: {
+        imageSrc: this.state.croppedImageUrl,
+        text: this.state.text
+      }
+    })
       .then(res => res.json())
-      .then(data => console.log(data));
+      .then(data => console.log(data));*/
+  }
+
+  handleChange(e) {
+    this.setState({
+      text: e.target.value
+    });
   }
 
   render() {
@@ -141,22 +159,39 @@ export class App extends React.Component {
 
     return (
       <div className="App">
-        <div>
-          <input type="file" onChange={this.onSelectFile} />
+        <div className="main">
+          <div className="left-section">
+            <div>
+              <input type="file" onChange={this.onSelectFile} />
+            </div>
+            {src && (
+              <ReactCrop
+                src={src}
+                crop={crop}
+                onImageLoaded={this.onImageLoaded}
+                onComplete={this.onCropComplete}
+                onChange={this.onCropChange}
+              />
+            )}
+          </div>
         </div>
-        {src && (
-          <ReactCrop
-            src={src}
-            crop={crop}
-            onImageLoaded={this.onImageLoaded}
-            onComplete={this.onCropComplete}
-            onChange={this.onCropChange}
-          />
-        )}
-        {croppedImageUrl && (
-          <img alt="Crop" style={{ maxWidth: "100%" }} src={croppedImageUrl} />
-        )}
-        <button onClick={this.handleClick}>test</button>
+        <div className="right-section">
+          {croppedImageUrl && (
+            <img
+              alt="Crop"
+              style={{ maxWidth: "100%" }}
+              src={croppedImageUrl}
+            />
+          )}
+          <form onSubmit={this.handleSubmit}>
+            <input
+              type="text"
+              value={this.state.text}
+              onChange={this.handleChange}
+            />
+            <button onClick={this.handleSubmit}>test</button>
+          </form>
+        </div>
       </div>
     );
   }
