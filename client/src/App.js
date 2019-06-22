@@ -104,6 +104,10 @@ export class App extends React.Component {
   getCroppedImg(image, crop, fileName) {
     const canvas = document.createElement("canvas"); // document 상에 canvas 태그 생성
     // 캔버스 영역을 크롭한 이미지 크기 만큼 조절
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    console.log(scaleX);
+    console.log(scaleY);
     canvas.width = crop.width;
     canvas.height = crop.height;
     // getContext() 메서드를 활용하여 캔버스 렌더링 컨텍스트 함수 사용
@@ -114,10 +118,10 @@ export class App extends React.Component {
     ctx.drawImage(
       // 원본 이미지 영역
       image, // 원본 이미지
-      crop.x, // 크롭한 이미지 x 좌표
-      crop.y, // 크롭한 이미지 y 좌표
-      crop.width, // 크롭한 이미지 가로 길이
-      crop.height, // 크롭한 이미지 세로 길이
+      crop.x * scaleX, // 크롭한 이미지 x 좌표
+      crop.y * scaleY, // 크롭한 이미지 y 좌표
+      crop.width * scaleX, // 크롭한 이미지 가로 길이
+      crop.height * scaleY, // 크롭한 이미지 세로 길이
       // 캔버스 영역
       0, // 캔버스에서 이미지 시작 x 좌표
       0, // 캔버스에서 이미지 시작 y 좌표
