@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "browserslist": "4.6.3",
+    "browserslist": "4.16.5",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-image-crop": "^8.0.5",
